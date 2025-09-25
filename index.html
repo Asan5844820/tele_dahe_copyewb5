@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>资源导航主页</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+         --bg:#0f1724;
+         --card:#1c2738;
+         --accent:#6ee7b7;
+         --muted:#9aa4b2;
+         --radius:18px;
+       }
+       *{box-sizing:border-box;margin:0;padding:0}
+       body{
+         font-family:'Inter',sans-serif;
+         background:var(--bg);
+         color:#fff;
+         min-height:100vh;
+         display:flex;
+         justify-content:center;
+         align-items:center;
+         padding:20px;
+         overflow:hidden;
+         position:relative;
+       }
+       /* 背景动态粒子 */
+       .background{
+         position:absolute;
+         top:0;left:0;
+         width:100%;height:100%;
+         overflow:hidden;
+         z-index:0;
+       }
+       .bubble{
+         position:absolute;
+         border-radius:50%;
+         cursor:pointer;
+         will-change: transform, opacity;
+       }
+       .pop{
+         animation: pop 0.6s forwards;
+         background: radial-gradient(circle, rgba(255,255,255,0.9), transparent) !important;
+         box-shadow:0 0 24px rgba(255,255,255,0.8) !important;
+       }
+       @keyframes pop{
+         0%{transform:scale(1);opacity:1;}
+         50%{transform:scale(1.8);opacity:0.7;}
+         100%{transform:scale(0);opacity:0;}
+       }
+    .container{
+      width:100%;
+      max-width:900px;
+      position:relative;
+      z-index:2;
+    }
+    .h1{
+		display: flex;
+		flex-direction: column;
+      text-align:center;
+     
+      font-size:28px;
+      font-weight:800;
+      color:var(--accent);
+	  margin: 12px 0;
+    }
+	.h1 span:nth-child(1){
+		color: rgba(192,132,252,0.5);
+		font-size: 40px;
+	}
+	.h1 span:nth-child(2){
+		font-size: 30px;
+	}
+	.h2{
+	  text-align:center;
+	  margin-bottom:28px;
+	  font-size:16px;
+	  font-weight:800;
+	  color:var(--accent);
+	}
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:20px;
+    }
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:22px;
+      text-decoration:none;
+      color:#fff;
+      box-shadow:0 6px 14px rgba(0,0,0,0.4);
+      transition:transform .3s, box-shadow .3s, background .3s;
+    }
+    .card:hover{
+      transform:translateY(-6px) scale(1.02);
+      box-shadow:0 12px 24px rgba(0,0,0,0.6);
+      background:linear-gradient(135deg,#243447,#1c2738);
+    }
+    .card h2{
+      font-size:20px;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+    .card p{
+      color:var(--muted);
+      font-size:15px;
+    }
+    @media(min-width:768px){
+      .grid{grid-template-columns:1fr 1fr;}
+	 
+    }
+	@media (max-width: 600px) {
+		.h1 span:nth-child(1){
+				  font-size: 40px;;
+		}
+		.h1 span:nth-child(2){
+				  font-size: 20px;;
+		}
+	}
+    @media(min-width:1024px){
+      .grid{grid-template-columns:1fr 1fr 1fr;}
+    }
+  </style>
+</head>
+<body>
+  <!-- 动态背景 -->
+  <div class="background" id="background"></div>
+
+  <div class="container">
+	  <p class="h1"><span>TG最大最全 </span> <span >【🏆国内外账号批发🏆刷粉联盟🏆】</span></p>
+	  <p class="h2">所有灰产资源供应，全部都有，满足你的需求！</p>
+    <div class="grid">
+      <a class="card" href="https://kuailianvpn.online" target="_blank">
+        <h2>✅ 国内APP账号购买</h2>
+        <p>点击进入 — TG最全</p>
+      </a>
+      <a class="card" href="https://platformwps.online" target="_blank">
+        <h2>✅ 国外APP账号购买</h2>
+        <p>点击进入 — TG最全</p>
+      </a>
+      <a class="card" href="https://tflxeiwj.click" target="_blank">
+        <h2>✅ 全球接码-注册营销软件</h2>
+        <p>点击进入  — TG最全</p>
+      </a>
+      <a class="card" href="https://jinshanwps.xyz" target="_blank">
+        <h2>✅ 全球APP刷粉</h2>
+        <p>点击进入  — TG最全</p>
+      </a>
+      <a class="card" href="https://leidianmnq.xyz" target="_blank">
+        <h2>✅ 群发引流软件</h2>
+        <p>点击进入  — TG最全</p>
+      </a>
+    </div>
+  </div>
+
+  <script>
+     const background = document.getElementById('background');
+        const colors = [
+          'radial-gradient(circle at 30% 30%, rgba(110,231,183,0.5), rgba(110,231,183,0.05))',
+          'radial-gradient(circle at 30% 30%, rgba(96,165,250,0.5), rgba(96,165,250,0.05))',
+          'radial-gradient(circle at 30% 30%, rgba(192,132,252,0.5), rgba(192,132,252,0.05))',
+          'radial-gradient(circle at 30% 30%, rgba(251,191,36,0.5), rgba(251,191,36,0.05))'
+        ];
+    
+        const bubbles = [];
+        const maxBubbles = 20;
+    
+        function createBubble(){
+          if(bubbles.length >= maxBubbles) return;
+    
+          const bubble=document.createElement('div');
+          bubble.classList.add('bubble');
+    
+          let size=Math.random()*40+20;
+          bubble.style.width=size+'px';
+          bubble.style.height=size+'px';
+          bubble.style.left=Math.random()*window.innerWidth+'px';
+          bubble.style.top=Math.random()*window.innerHeight+'px';
+    
+          // 随机渐变颜色
+          bubble.style.background = colors[Math.floor(Math.random()*colors.length)];
+          bubble.style.boxShadow = `0 0 12px rgba(255,255,255,0.3)`;
+    
+          background.appendChild(bubble);
+          bubbles.push(bubble);
+    
+          let x = parseFloat(bubble.style.left);
+          let y = parseFloat(bubble.style.top);
+          let dx = (Math.random()-0.5) * 2; // 随机水平速度
+          let dy = (Math.random()-0.5) * 2; // 随机垂直速度
+    
+          function move(){
+            x += dx;
+            y += dy;
+            bubble.style.left = x + 'px';
+            bubble.style.top = y + 'px';
+    
+            if(x < -100 || x > window.innerWidth+100 || y < -100 || y > window.innerHeight+100){
+              bubble.remove();
+              bubbles.splice(bubbles.indexOf(bubble),1);
+              createBubble(); // 保证数量
+            } else {
+              requestAnimationFrame(move);
+            }
+          }
+          move();
+    
+          bubble.addEventListener('click', ()=>{
+            bubble.classList.add('pop');
+            setTimeout(()=>{
+              if(background.contains(bubble)) bubble.remove();
+              if(bubbles.includes(bubble)) bubbles.splice(bubbles.indexOf(bubble),1);
+              createBubble();
+            },600);
+          });
+        }
+    
+        for(let i=0;i<maxBubbles;i++){
+          createBubble();
+        }
+  </script>
+</body>
+</html>
